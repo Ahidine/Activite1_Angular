@@ -12,11 +12,13 @@ export class PostListComponent implements OnInit {
 
   ngOnInit() {
   }
+  // methode comme son nom indique a un objectif de supprimer un post 
   Supprimer(post)
   {
   	console.log(this.posts.indexOf(post));
   	this.posts.splice(this.posts.indexOf(post),1)
   }
+  // methode a un objectif d'ajouter les j'aime ou les j'aime pas
   lovefunction(indice,post)
   {
   	if (indice==='add') {
