@@ -1,34 +1,45 @@
-import { Component,Input, OnInit } from '@angular/core';
+import { Component,Input, OnInit,OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
+import { PostService } from '../services/post.service';
+import { Post } from '../models/post.model';
+
 
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.scss']
 })
-export class PostListComponent implements OnInit {
+export class PostListComponent implements OnInit,OnDestroy {
 
-  constructor() { }
-  @Input() posts  ;
+  constructor(private postService: PostService,
+              private router: Router,
+              ) { }
+ posts: Post[];
+ postSubs: Subscription;
 
   ngOnInit() {
+    this.postSubs=this.postService.postSubject.subscribe( 
+      (post: Post[]) => {
+        this.posts=post;
+      }
+       );
+    this.postService.emitPost();
+    this.postService.getPosts();
   }
-  // methode comme son nom indique a un objectif de supprimer un post 
-  Supprimer(post)
+
+  onRemove(post)
   {
-  	console.log(this.posts.indexOf(post));
-  	this.posts.splice(this.posts.indexOf(post),1)
+    this.postService.RemovePost(post);
   }
-  // methode a un objectif d'ajouter les j'aime ou les j'aime pas
+
   lovefunction(indice,post)
   {
-  	if (indice==='add') {
-  		// code...
-  		post.loveIts++;
-  	}
-  	else if(indice==='rmv')
-  	{
-  		post.loveIts--
-  	}
+    this.postService.lovefunction(indice,post);
+  }
+  ngOnDestroy()
+  {
+    this.postSubs.unsubscribe();
   }
 
 }

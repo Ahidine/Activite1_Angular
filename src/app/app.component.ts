@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Post } from './models/post.model';
+import * as firebase from 'firebase';
 
 @Component({
 	selector: 'app-root',
@@ -6,48 +8,18 @@ import { Component } from '@angular/core';
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-	title = 'Activite';
-	show=false;
-// un objet dont l'intret et de stocker les donnes afin d'ajouter un nouveau post
-	MyPost={
-		title:'',
-		content:''
-	};
-	// methode dont l'objectif est d'ajouter un post dans le tableau qui contient tous les posts
-
-	addPost()
-	{
-		this.Posts.push(new Post(this.MyPost.title,this.MyPost.content));
-		this.show=false;
-	}
-	// une fonction dont l'objectif est de vider les champs puisque j utilise binding dans
-	// deux sens et d afficher le div qui contient les champs necessaire pour creer un nouveau
-	// post  a savoir que il y a une condition sur  la variable show 
-	add()
-	{
-		this.MyPost.title='';
-		this.MyPost.content='';
-		this.show=true;
-	}
-
-// le tableau des objets de type Post
-	Posts=[
-	new Post('post 1','akjsjksjskjiwjwhwjwsndjhjdwhjewphdui23nbihbdeibd'),
-	new Post('post 2','akjsjksjskjiwjwhwjwsndjhjdwhjewphdui23nbihbdeibd'),
-	new Post('post 3','akjsjksjskjiwjwhwjwsndjhjdwhjewphdui23nbihbdeibd'),
-	new Post('post 4','akjsjksjskjiwjwhwjwsndjhjdwhjewphdui23nbihbdeibd'),
-	] 
+constructor(){
+var firebaseConfig = {
+    apiKey: "AIzaSyCMz71M0bn98FwjRfcaXoD5oK2uIo6K7DU",
+    authDomain: "actvitefincoursoc.firebaseapp.com",
+    databaseURL: "https://actvitefincoursoc.firebaseio.com",
+    projectId: "actvitefincoursoc",
+    storageBucket: "",
+    messagingSenderId: "266193422314",
+    appId: "1:266193422314:web:71fcd4f2f8984a367b9493"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
 }
-class Post  {
-	title: string;
-	content: string;
-	loveIts: number;
-	created_at: Date
-	constructor(title,content) {
-		// code...
-		this.title=title;
-		this.content=content;
-		this.loveIts=0;
-		this.created_at=new Date;
-	}
 }
+

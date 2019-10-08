@@ -1,21 +1,39 @@
-<li *ngFor="let post of posts"
-	[ngClass]="{'list-group-item':true,
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12">
+			<h2>Mes Posts</h2>
+
+			<ul class="list-group">
+				<li *ngFor="let post of posts"
+				[ngClass]="{'list-group-item':true,
 				'list-group-item-success': post.loveIts > 0,
 				'list-group-item-danger': post.loveIts < 0}"
-				 >
-	
-	<div>
-	<div class="pull-right	">
-		<i style="font-size: 18px; color: gray;">{{post.created_at | date: 'dd/MM/yyyy, HH:mm'}} AM</i>
-	</div>
-	<h1>{{post.title}}</h1>
-		
-	</div>
-	
+				>
 
-  <p> {{post.content}} </p>
-  <button class="btn btn-success" (click)="lovefunction('add',post)">Love it !</button>   
-  &nbsp;
-  <button class="btn btn-danger" (click)="lovefunction('rmv',post)">Dont love it !</button> 
-  <button class="btn btn-warning pull-right" (click)="Supprimer(post)">Supprimer</button>
-</li>
+				<div>
+					<div class="pull-right	">
+						<i style="font-size: 18px; color: gray;">{{post.created_at}} AM</i>
+					</div>
+					<h1>{{post.title}}</h1>
+
+				</div>
+
+
+				<p> {{post.content}} </p>
+				<button class="btn btn-success" (click)="lovefunction('add',post)">Love it !</button>   
+				&nbsp;
+				<button class="btn btn-danger" (click)="lovefunction('rmv',post)">Dont love it !</button> 
+				<button class="btn btn-warning pull-right" (click)="onRemove(post)">Supprimer</button>
+			</li>     
+		</ul>
+
+   
+
+
+
+	</div>
+</div>
+</div>
+
+
